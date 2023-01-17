@@ -1,5 +1,5 @@
-import { Prop, Schema } from '@nestjs/mongoose';
-import { SchemaFactory } from '@nestjs/mongoose/dist';
+/* eslint-disable prettier/prettier */
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SchemaOptions } from 'mongoose';
 
 const options: SchemaOptions = {
@@ -17,7 +17,7 @@ export class Member {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ required: true })
+  @Prop()
   confirmPw: string;
 
   @Prop()

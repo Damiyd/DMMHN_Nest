@@ -18,7 +18,7 @@ export class CreateMemberDto {
   memberName: string;
 
   @IsString()
-  birth: string;
+  birth?: string;
 
   @IsString()
   @IsNotEmpty()

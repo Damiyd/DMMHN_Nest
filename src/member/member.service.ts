@@ -1,10 +1,13 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateMemberDto } from './dto/create-member.dto';
 import * as bcrypt from 'bcrypt';
+import { MemberRepository } from './member.repository';
 
 @Injectable()
 export class MemberService {
-  create(createMemberDto: CreateMemberDto) {
+  constructor(private readonly memberRepository: MemberRepository) {}
+
+  async create(createMemberDto: CreateMemberDto) {
     const { password, confirmPw, validate, memberEmail } = createMemberDto;
 
     // 비밀번호와 비밀번호 확인이 일치하는지 검사
@@ -19,9 +22,18 @@ export class MemberService {
       throw new UnauthorizedException('email 인증코드를 입력해주세요');
     }
 
-    const saltOrRounds = 5;
-    const hashedPassword = bcrypt.hash(password, saltOrRounds);
+    const existByEmail = await this.memberRepository.existByEmail(memberEmail);
+    if (existByEmail) {
+      throw new UnauthorizedException('이미 존재하는 이메일입니다');
+    }
 
-    return;
+    // const saltOrRounds = process.env.saltOrRounds;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newMember = this.memberRepository.createMember(
+      createMemberDto,
+      hashedPassword,
+    );
+    return newMember;
   }
 }
