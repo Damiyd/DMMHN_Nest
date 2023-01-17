@@ -1,4 +1,4 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SchemaOptions } from 'mongoose';
 
 const options: SchemaOptions = {
@@ -43,3 +43,5 @@ export class Member {
   @Prop({ default: 'https://i.ibb.co/jwSbV5Z/profile-default.png' })
   img: string;
 }
+
+export const MemberSchema = SchemaFactory.createForClass(Member);

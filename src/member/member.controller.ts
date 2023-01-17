@@ -10,10 +10,15 @@ import {
 import { MemberService } from './member.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
+import { LoginMemberDto } from './dto/login-member.dto';
+import { AuthService } from 'src/auth/auth.service';
 
 @Controller('member')
 export class MemberController {
-  constructor(private readonly memberService: MemberService) {}
+  constructor(
+    private readonly memberService: MemberService,
+    private readonly authService: AuthService
+    ) {}
 
   @Post('signup')
   create(@Body() createMemberDto: CreateMemberDto) {
@@ -21,7 +26,7 @@ export class MemberController {
   }
 
   @Post('login')
-  login(@Body() body) {
-    return;
+  async login(@Body() loginMemberDto: LoginMemberDto) {
+    return this.authService.login(loginMemberDto);
   }
 }
