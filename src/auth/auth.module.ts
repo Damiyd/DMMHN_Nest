@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { forwardRef, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
@@ -11,9 +12,9 @@ import { AuthService } from './auth.service';
     JwtModule.register({
       secret: process.env.SECRET_KEY,
     }),
-    forwardRef(() => MemberModule)
+    forwardRef(() => MemberModule),
   ],
-  providers: [AuthService,JwtStrategy],
+  providers: [AuthService, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
