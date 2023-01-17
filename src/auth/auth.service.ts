@@ -15,7 +15,7 @@ async login(loginMemberDto: LoginMemberDto) {
     const { memberEmail, password } = loginMemberDto;
     const findOneMember = await this.memberRepository.findOneMember(memberEmail);
     if(!findOneMember) {
-        throw new UnauthorizedException("이메일 및 비밀번호를 확인해주세용");
+        throw new UnauthorizedException("이메일 및 비밀번호를 확인");
     }
     const findOnePassword = findOneMember.password;
     const findPassword = await bcrypt.compare(password, findOnePassword)
@@ -25,9 +25,15 @@ async login(loginMemberDto: LoginMemberDto) {
 
     const payload = {
         sub: findOneMember.memberEmail,
+    };
+    const access_token = this.jwtService.sign(payload, {
+        secret: process.env.SECRET_KEY,
+        expiresIn: "1h",
+    })
+    return {
+        access_token: `Bearer ${access_token}`
+        }
     }
-}
-
 }
 
 
