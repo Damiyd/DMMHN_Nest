@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 import {
   Controller,
   Get,
@@ -17,8 +19,8 @@ import { AuthService } from 'src/auth/auth.service';
 export class MemberController {
   constructor(
     private readonly memberService: MemberService,
-    private readonly authService: AuthService
-    ) {}
+    private readonly authService: AuthService,
+  ) {}
 
   @Post('signup')
   create(@Body() createMemberDto: CreateMemberDto) {
