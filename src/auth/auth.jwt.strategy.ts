@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { MemberRepository } from 'src/member/member.repository';
@@ -16,7 +15,10 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
   async validate(payload: any) {
     const { memberEmail } = payload;
-    
-    return memberEmail;
+    if (memberEmail) {
+      return memberEmail;
+    } else {
+      throw new UnauthorizedException('올바른 토큰이 아닙니다');
+    }
   }
 }

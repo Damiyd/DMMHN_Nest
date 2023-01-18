@@ -1,12 +1,9 @@
 /* eslint-disable prettier/prettier */
-
 import {
   Controller,
-  Get,
   Post,
   Body,
   Patch,
-  Param,
   Delete,
   UseGuards,
 } from '@nestjs/common';
@@ -37,7 +34,7 @@ export class MemberController {
   @UseGuards(JwtAuthGuard)
   @Patch()
   async patchMember() {
-    return this.memberService.patchMember()
+    return this.memberService.patchMember();
   }
 
   @UseGuards(JwtAuthGuard)
