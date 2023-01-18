@@ -6,6 +6,7 @@ import {
   Patch,
   Delete,
   UseGuards,
+  Get,
 } from '@nestjs/common';
 import { MemberService } from './member.service';
 import { CreateMemberDto } from './dto/create-member.dto';
@@ -21,6 +22,11 @@ export class MemberController {
     private readonly memberService: MemberService,
     private readonly authService: AuthService,
   ) {}
+  
+  @Get()
+  getHello() {
+    return "Hello We Are NestJs + Dokcer"
+  }
 
   @Post('signup')
   create(@Body() createMemberDto: CreateMemberDto) {
