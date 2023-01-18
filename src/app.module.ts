@@ -4,7 +4,6 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MemberModule } from './member/member.module';
 import { AuthModule } from './auth/auth.module';
-import { MockInterviewController } from './mock-interview/mock-interview.controller';
 
 @Module({
   imports: [
@@ -13,7 +12,7 @@ import { MockInterviewController } from './mock-interview/mock-interview.control
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.DB_HOST), 
     ],
-  controllers: [MockInterviewController],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}
