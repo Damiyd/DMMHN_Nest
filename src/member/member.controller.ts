@@ -13,6 +13,7 @@ import { LoginMemberDto } from './dto/login-member.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/auth.jwt.guard';
 import { CurrentUser } from 'src/common/decorators/member.decorators';
+import { UpdateMemberDto } from './dto/update-member.dto';
 
 @Controller('member')
 export class MemberController {
@@ -33,8 +34,8 @@ export class MemberController {
 
   @UseGuards(JwtAuthGuard)
   @Patch()
-  async patchMember() {
-    return this.memberService.patchMember();
+  async patchMember(@CurrentUser() memberEmail: string, @Body() updateMemberDto: UpdateMemberDto) {
+    return this.memberService.patchMember(memberEmail, updateMemberDto);
   }
 
   @UseGuards(JwtAuthGuard)

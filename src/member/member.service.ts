@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateMemberDto } from './dto/create-member.dto';
 import * as bcrypt from 'bcrypt';
 import { MemberRepository } from './member.repository';
+import { UpdateMemberDto } from './dto/update-member.dto';
 
 @Injectable()
 export class MemberService {
@@ -37,9 +38,9 @@ export class MemberService {
     return newMember;
   }
 
-  async patchMember() {
+  async patchMember(memberEmail: string,updateMemberDto: UpdateMemberDto) {
 
-    return await this.memberRepository.patchMember()
+    return await this.memberRepository.patchMember(memberEmail, updateMemberDto)
   }
 
   async deleteMember(memberEmail: string) {
