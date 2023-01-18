@@ -32,9 +32,9 @@ export class MockInterviewController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get()
-  getCustomQuestions(@CurrentUser() memberEmail: string) {
-    return this.mockInterviewService.getCustomQuestions(memberEmail);
+  @Post("random")
+  getRandomQuestions(@CurrentUser() memberEmail: string, @Body() category: string, number: number) {
+    return this.mockInterviewService.getRandomQuestions(memberEmail, category, number);
   }
 
   @Patch(':id')
