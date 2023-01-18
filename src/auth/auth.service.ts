@@ -27,14 +27,14 @@ export class AuthService {
     }
 
     const payload = {
-        sub: findOneMember.memberEmail,
+      memberEmail: findOneMember.memberEmail,
     };
     const access_token = this.jwtService.sign(payload, {
-        secret: process.env.SECRET_KEY,
-        expiresIn: "1h",
-    })
+      secret: process.env.SECRET_KEY,
+      expiresIn: '1h',
+    });
     return {
-        access_token: `Bearer ${access_token}`
-        }
-    }
+      access_token: `Bearer ${access_token}`,
+    };
+  }
 }
