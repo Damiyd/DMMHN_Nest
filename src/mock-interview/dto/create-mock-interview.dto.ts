@@ -11,5 +11,5 @@ export class CreateMockInterviewDto {
 
     @IsString()
     @IsNotEmpty()
-    customMemberId: string;
+    customMemberEmail: string;
 }

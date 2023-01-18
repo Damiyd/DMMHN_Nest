@@ -17,7 +17,7 @@ export class MockInterview {
     question: string;
 
     @Prop()
-    customMemberId: string;
+    customMemberEmail: string;
 }
 
 export const MockInterviewSchema = SchemaFactory.createForClass(MockInterview);
