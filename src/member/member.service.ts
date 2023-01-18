@@ -36,4 +36,13 @@ export class MemberService {
     );
     return newMember;
   }
+
+  async patchMember() {
+
+    return await this.memberRepository.patchMember()
+  }
+
+  async deleteMember(memberEmail: string) {
+    return await this.memberRepository.deleteMember(memberEmail);
+  }
 }
