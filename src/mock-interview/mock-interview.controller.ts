@@ -1,22 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { MockInterviewService } from './mock-interview.service';
 import { CreateMockInterviewDto } from './dto/create-mock-interview.dto';
 import { UpdateMockInterviewDto } from './dto/update-mock-interview.dto';
-import { JwtAuthGuard } from 'src/auth/auth.jwt.guard';
 import { CurrentUser } from 'src/common/decorators/member.decorators';
+import { JwtAuthGuard } from 'src/auth/auth.jwt.guard';
 
-@Controller('mockinterview')
+@Controller('mockInterview')
 export class MockInterviewController {
   constructor(private readonly mockInterviewService: MockInterviewService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createMockInterviewDto: CreateMockInterviewDto) {
-    return this.mockInterviewService.create(createMockInterviewDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.mockInterviewService.findAll();
+  create(
+    @Body() createMockInterviewDto: CreateMockInterviewDto,
+    @CurrentUser() memberEmail: string,
+  ) {
+    return this.mockInterviewService.create(
+      createMockInterviewDto,
+      memberEmail,
+    );
   }
 
   @UseGuards(JwtAuthGuard)
@@ -26,7 +38,10 @@ export class MockInterviewController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMockInterviewDto: UpdateMockInterviewDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateMockInterviewDto: UpdateMockInterviewDto,
+  ) {
     return this.mockInterviewService.update(+id, updateMockInterviewDto);
   }
 

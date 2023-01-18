@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -13,14 +14,28 @@ const shuffle = (array) => {
 export class MockInterviewService {
   constructor(
     @InjectModel(MockInterview.name)
-    private mockInterviewModel: Model<MockInterview>
+    private mockInterviewModel: Model<MockInterview>,
   ) {}
-  create(createMockInterviewDto: CreateMockInterviewDto) {
-    return 'This action adds a new mockInterview';
+  async create(
+    createMockInterviewDto: CreateMockInterviewDto,
+    memberEmail: string,
+  ) {
+    const { category, question } = createMockInterviewDto;
+    const newQuestion = await this.mockInterviewModel.create({
+      category,
+      question,
+      customMemberEmail: memberEmail,
+    });
+
+    return newQuestion;
   }
 
-  findAll() {
-    return `This action returns all mockInterview`;
+  async getCustomQuestions(memberEmail: string) {
+    const customQuestions = await this.mockInterviewModel.find({
+      customMemberEmail: memberEmail,
+    });
+
+    return customQuestions;
   }
 
   async getRandomQuestions(memberEmail: string, category: string, number: number) {

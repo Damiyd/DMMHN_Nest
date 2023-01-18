@@ -1,15 +1,16 @@
-import { IsNotEmpty, IsString } from "class-validator";
+/* eslint-disable prettier/prettier */
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateMockInterviewDto {
-    @IsString()
-    @IsNotEmpty()
-    category: string;
+  @IsString()
+  @IsNotEmpty()
+  category: string;
 
-    @IsString()
-    @IsNotEmpty()
-    question: string;
+  @IsString()
+  @IsNotEmpty()
+  question: string;
 
-    @IsString()
-    @IsNotEmpty()
-    customMemberEmail: string;
+  @IsString()
+  @IsNotEmpty()
+  customMemberEmail: string;
 }
