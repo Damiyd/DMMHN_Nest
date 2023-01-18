@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Member } from './entities/member.entity';
 import { MemberModule } from './member.module';
 import { CreateMemberDto } from './dto/create-member.dto';
+import { UpdateMemberDto } from './dto/update-member.dto';
 
 @Injectable()
 export class MemberRepository {
@@ -40,11 +41,18 @@ export class MemberRepository {
     return findOneMember;
   }
 
-  async patchMember() {
-    return await this.memberModel.updateOne({  })
+  async patchMember(memberEmail: string, updateMemberDto: UpdateMemberDto) {
+    const { birth, memberName, stack, job, gender } =
+      updateMemberDto;
+
+    return await this.memberModel.findOneAndUpdate(
+      { memberEmail },
+      { birth, memberName, stack, job, gender },
+      { new: true },
+    );
   }
 
   async deleteMember(memberEmail: string) {
-    return await this.memberModel.remove({ memberEmail })
+    return await this.memberModel.remove({ memberEmail });
   }
 }

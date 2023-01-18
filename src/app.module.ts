@@ -11,8 +11,8 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware';
     MemberModule,
     AuthModule,
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.DB_HOST),
-  ],
+    MongooseModule.forRoot(process.env.DB_HOST), 
+    ],
   controllers: [],
   providers: [],
 })
