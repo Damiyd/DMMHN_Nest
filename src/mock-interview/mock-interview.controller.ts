@@ -15,7 +15,7 @@ import { UpdateMockInterviewDto } from './dto/update-mock-interview.dto';
 import { CurrentUser } from 'src/common/decorators/member.decorators';
 import { JwtAuthGuard } from 'src/auth/auth.jwt.guard';
 
-@Controller('mockInterview')
+@Controller('mockinterview')
 export class MockInterviewController {
   constructor(private readonly mockInterviewService: MockInterviewService) {}
 
@@ -33,7 +33,8 @@ export class MockInterviewController {
 
   @UseGuards(JwtAuthGuard)
   @Post("random")
-  getRandomQuestions(@CurrentUser() memberEmail: string, @Body() category: string, number: number) {
+  getRandomQuestions(@CurrentUser() memberEmail: string, @Body() body) {
+    const { category, number } = body;
     return this.mockInterviewService.getRandomQuestions(memberEmail, category, number);
   }
 
