@@ -17,9 +17,9 @@ export class MockInterviewController {
     return this.mockInterviewService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.mockInterviewService.findOne(+id);
+  @Post('')
+  getRandomQuestions(@Param('id') id: string) {
+    return this.mockInterviewService.getRandomQuestions(id);
   }
 
   @Patch(':id')
