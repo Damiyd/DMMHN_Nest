@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { MockInterviewService } from './mock-interview.service';
 import { CreateMockInterviewDto } from './dto/create-mock-interview.dto';
 import { UpdateMockInterviewDto } from './dto/update-mock-interview.dto';
+import { JwtAuthGuard } from 'src/auth/auth.jwt.guard';
+import { CurrentUser } from 'src/common/decorators/member.decorators';
 
-@Controller('mock-interview')
+@Controller('mockinterview')
 export class MockInterviewController {
   constructor(private readonly mockInterviewService: MockInterviewService) {}
 
@@ -17,9 +19,10 @@ export class MockInterviewController {
     return this.mockInterviewService.findAll();
   }
 
-  @Post('')
-  getRandomQuestions(@Param('id') id: string) {
-    return this.mockInterviewService.getRandomQuestions(id);
+  @UseGuards(JwtAuthGuard)
+  @Post("random")
+  getRandomQuestions(@CurrentUser() memberEmail: string, @Body() category: string, number: number) {
+    return this.mockInterviewService.getRandomQuestions(memberEmail, category, number);
   }
 
   @Patch(':id')
