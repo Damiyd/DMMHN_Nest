@@ -38,9 +38,16 @@ export class MockInterviewService {
     return customQuestions;
   }
 
-  async getRandomQuestions(memberEmail: string, category: string, number: number) {
-
-    const questions = await this.mockInterviewModel.find({ category });
+  async getRandomQuestions(
+    memberEmail: string,
+    category: string,
+    number: number,
+  ) {
+    console.log(category);
+    const questions = await this.mockInterviewModel.find({
+      category,
+      customMemberEmail: memberEmail,
+    });
     const shuffledQue = shuffle(questions).slice(0, number);
     const questionArr = [];
 
