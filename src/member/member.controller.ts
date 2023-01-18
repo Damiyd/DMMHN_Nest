@@ -8,12 +8,14 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { MemberService } from './member.service';
 import { CreateMemberDto } from './dto/create-member.dto';
-import { UpdateMemberDto } from './dto/update-member.dto';
 import { LoginMemberDto } from './dto/login-member.dto';
 import { AuthService } from 'src/auth/auth.service';
+import { JwtAuthGuard } from 'src/auth/auth.jwt.guard';
+import { CurrentUser } from 'src/common/decorators/member.decorators';
 
 @Controller('member')
 export class MemberController {
@@ -30,5 +32,17 @@ export class MemberController {
   @Post('login')
   async login(@Body() loginMemberDto: LoginMemberDto) {
     return this.authService.login(loginMemberDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch()
+  async patchMember() {
+    return this.memberService.patchMember()
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete()
+  async deleteMember(@CurrentUser() memberEmail: string) {
+    return this.memberService.deleteMember(memberEmail);
   }
 }
