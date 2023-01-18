@@ -31,10 +31,22 @@ export class MockInterviewController {
     );
   }
 
+  @Get()
   @UseGuards(JwtAuthGuard)
-  @Post("random")
-  getRandomQuestions(@CurrentUser() memberEmail: string, @Body() category: string, number: number) {
-    return this.mockInterviewService.getRandomQuestions(memberEmail, category, number);
+  getCustomQuestions(@CurrentUser() memberEmail: string) {
+    return this.mockInterviewService.getCustomQuestions(memberEmail);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('random')
+  getRandomQuestions(@CurrentUser() memberEmail: string, @Body() body) {
+    const { category, number } = body;
+
+    return this.mockInterviewService.getRandomQuestions(
+      memberEmail,
+      category,
+      number,
+    );
   }
 
   @Patch(':id')
