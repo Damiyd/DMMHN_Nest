@@ -5,13 +5,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MemberModule } from './member/member.module';
 import { AuthModule } from './auth/auth.module';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
+import { MockInterviewModule } from './mock-interview/mock-interview.module';
 
 @Module({
   imports: [
     MemberModule,
     AuthModule,
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.DB_HOST), 
+    MongooseModule.forRoot(process.env.DB_HOST),
+    MockInterviewModule, 
     ],
   controllers: [],
   providers: [],
