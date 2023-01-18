@@ -1,6 +1,12 @@
 /* eslint-disable prettier/prettier */
-
-import { Controller, Post, Body, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { MemberService } from './member.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { LoginMemberDto } from './dto/login-member.dto';
@@ -26,9 +32,14 @@ export class MemberController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Patch()
+  async patchMember() {
+    return this.memberService.patchMember();
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Delete()
-  async delete(@CurrentUser() member: string) {
-    console.log(member);
-    return;
+  async deleteMember(@CurrentUser() memberEmail: string) {
+    return this.memberService.deleteMember(memberEmail);
   }
 }

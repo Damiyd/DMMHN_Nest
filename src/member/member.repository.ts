@@ -39,4 +39,12 @@ export class MemberRepository {
     const findOneMember = await this.memberModel.findOne({ memberEmail });
     return findOneMember;
   }
+
+  async patchMember() {
+    return await this.memberModel.updateOne({  })
+  }
+
+  async deleteMember(memberEmail: string) {
+    return await this.memberModel.remove({ memberEmail })
+  }
 }
