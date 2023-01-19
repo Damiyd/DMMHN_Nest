@@ -16,5 +16,6 @@ import {
   ],
   controllers: [MockInterviewController],
   providers: [MockInterviewService],
+  exports: [MockInterviewService]
 })
 export class MockInterviewModule {}
