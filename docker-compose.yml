@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  nginx:
+    image:  nginx
+    vloumes:
+      - 
+
+  docker:
+    build: .
+    image: docker-nest-nginx
+    restart: always
+    container_name: docker-nest-nginx
+    environment:
+      TZ: 'Asia/Seoul'
+    ports:
+      - 3000:80

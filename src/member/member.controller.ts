@@ -25,7 +25,7 @@ export class MemberController {
   
   @Get()
   getHello() {
-    return "Hello We Are NestJs + Dokcer"
+    return "Hello We Are NestJs + Dokcer!"
   }
 
   @Post('signup')
