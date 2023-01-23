@@ -77,6 +77,9 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
+    "optionalDependencies": {
+      "fsevents": "*"
+     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   }
